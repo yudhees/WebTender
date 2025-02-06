@@ -8,7 +8,7 @@
                       <h3>With the world's #1 Online Tenders Services</h3>
                    </div>
                    <h1>Get Latest Tenders,RFPs,News,Procurement & Bid.</h1>
-                   <form class="form" name="store" id="store" method="post" action="#">
+                   <form class="form" name="store" id="store" @submit.prevent="submit">
                       <div class="form-inner">
                          <div class="input-group">
                             <span class="drop-detail">
@@ -17,8 +17,8 @@
                                   <option value="developer.html">Freelancers</option>
                                </select>
                             </span>
-                            <input type="email" class="form-control" placeholder="Keywords">
-                            <button class="btn btn-primary sub-btn" type="submit">Search</button>
+                            <input type="text" class="form-control" placeholder="Keywords" v-model="search">
+                            <button class="btn btn-primary sub-btn" type="submit" :disabled="!search">Search</button>
                          </div>
                       </div>
                    </form>
@@ -43,4 +43,11 @@
  </template>
 <script setup>
 import { asset } from '@/composables/global';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const search=ref('')
+const router=useRouter()
+const submit=async()=>{
+    router.push({name:'search',query:{search:search.value}})
+}
 </script>
